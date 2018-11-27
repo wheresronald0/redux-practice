@@ -30,6 +30,14 @@ const reducer = (state = initialState, action) => {
       ...state,
       results: state.results.concat({ id: new Date(), value: state.counter }) //concat instead of push as an immutable way (push will update the original state- no bueno!)
     }; //(state.counter) worked but I needed a key for the <li> in Counter.js
+  } else if (action.type === "DELETE_RESULT") {
+    const updatedArray = state.results.filter(
+      result => result.id !== action.listId //id passed as payload from action
+    );
+    return {
+      ...state,
+      results: updatedArray
+    };
   }
   return state;
 };
